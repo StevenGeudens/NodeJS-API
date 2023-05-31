@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Simple JS API</title>
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+			crossorigin="anonymous"
+		/>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap"
+			rel="stylesheet"
+		/>
+	</head>
+	<body>
+		<div class="container py-4">
+			<div class="text-center">
+				<h1>Welcome to my API!</h1>
+				<h2>These are the available routes:</h2>
+			</div>
+			<div class="d-flex align-items-center flex-column pt-4">
+				<div class="card mb-4" style="width: min(100%, 50rem)">
+					<div class="card-body">
+						<h5 class="card-title">
+							<span class="text-primary me-2">GET</span>/
+						</h5>
+						<p class="card-text">Where you are right now.</p>
+					</div>
+				</div>
+				<div class="card mb-4" style="width: min(100%, 50rem)">
+					<div class="card-body">
+						<h5 class="card-title">
+							<span class="text-primary me-2">GET</span>/user
+						</h5>
+						<p class="card-text">Returns all the users in the database.</p>
+					</div>
+				</div>
+				<div class="card mb-4" style="width: min(100%, 50rem)">
+					<div class="card-body">
+						<h5 class="card-title">
+							<span class="text-primary me-2">GET</span>/user/:id
+						</h5>
+						<p class="card-text">
+							Returns one single user from the database by id.
+						</p>
+					</div>
+				</div>
+				<div class="card mb-4" style="width: min(100%, 50rem)">
+					<div class="card-body">
+						<h5 class="card-title">
+							<span class="text-success me-2">POST</span>/user
+						</h5>
+						<p class="card-text">Creates one single user to the database.</p>
+                        <p>Provide a body in the request with a JSON user object in following format:</p>
+						<div class="bg-dark text-light rounded p-4" style="font-family: 'Source Code Pro', monospace">
+							<span>{</span><br />
+							<span class="ms-4" style="color: #48da87">"name"</span
+							><span>:</span
+							><span class="ms-2" style="color: #85d6ff"
+								>"Firstname Lastname"</span
+							><span>,</span><br />
+
+							<span class="ms-4" style="color: #48da87">"birthdate"</span
+							><span>:</span
+							><span class="ms-2" style="color: #85d6ff"
+								>"2000-01-01T00:00:00.000Z"</span
+							><span>,</span><br />
+
+							<span class="ms-4" style="color: #48da87">"email"</span
+							><span>:</span
+							><span class="ms-2" style="color: #85d6ff"
+								>"email@example.com"</span
+							><br />
+
+							<span>}</span>
+						</div>
+					</div>
+				</div>
+				<div class="card mb-4" style="width: min(100%, 50rem)">
+					<div class="card-body">
+						<h5 class="card-title">
+							<span class="text-warning me-2">PUT</span>/user/:id
+						</h5>
+						<p class="card-text">Updates one single user in the database.</p>
+                        <p>Provide a body in the request with a JSON user object containing the updates in following format:</p>
+                        <div class="bg-dark text-light rounded p-4" style="font-family: 'Source Code Pro', monospace">
+							<span>{</span><br />
+							<span class="ms-4" style="color: #48da87">"name"</span
+							><span>:</span
+							><span class="ms-2" style="color: #85d6ff"
+								>"UpdatedFirstname UpdatedLastname"</span
+							><span>,</span><br />
+
+							<span>}</span>
+						</div>
+					</div>
+				</div>
+                <div class="card mb-4" style="width: min(100%, 50rem)">
+					<div class="card-body">
+						<h5 class="card-title">
+							<span class="text-danger me-2">DELETE</span>/user/:id
+						</h5>
+						<p class="card-text">
+							Deletes one single user from the database.
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+			crossorigin="anonymous"
+		></script>
+	</body>
+</html>

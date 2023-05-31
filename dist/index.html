@@ -35,7 +35,8 @@
 				<div class="card mb-4" style="width: min(100%, 50rem)">
 					<div class="card-body">
 						<h5 class="card-title">
-							<span class="text-primary me-2">GET</span>/user
+							<span class="text-primary me-2">GET</span
+							>/.netlify/functions/api/user
 						</h5>
 						<p class="card-text">Returns all the users in the database.</p>
 					</div>
@@ -43,7 +44,8 @@
 				<div class="card mb-4" style="width: min(100%, 50rem)">
 					<div class="card-body">
 						<h5 class="card-title">
-							<span class="text-primary me-2">GET</span>/user/:id
+							<span class="text-primary me-2">GET</span
+							>/.netlify/functions/api/user/:id
 						</h5>
 						<p class="card-text">
 							Returns one single user from the database by id.
@@ -53,11 +55,18 @@
 				<div class="card mb-4" style="width: min(100%, 50rem)">
 					<div class="card-body">
 						<h5 class="card-title">
-							<span class="text-success me-2">POST</span>/user
+							<span class="text-success me-2">POST</span
+							>/.netlify/functions/api/user
 						</h5>
 						<p class="card-text">Creates one single user to the database.</p>
-                        <p>Provide a body in the request with a JSON user object in following format:</p>
-						<div class="bg-dark text-light rounded p-4" style="font-family: 'Source Code Pro', monospace">
+						<p>
+							Provide a body in the request with a JSON user object in following
+							format:
+						</p>
+						<div
+							class="bg-dark text-light rounded p-4"
+							style="font-family: 'Source Code Pro', monospace"
+						>
 							<span>{</span><br />
 							<span class="ms-4" style="color: #48da87">"name"</span
 							><span>:</span
@@ -84,11 +93,18 @@
 				<div class="card mb-4" style="width: min(100%, 50rem)">
 					<div class="card-body">
 						<h5 class="card-title">
-							<span class="text-warning me-2">PUT</span>/user/:id
+							<span class="text-warning me-2">PUT</span
+							>/.netlify/functions/api/user/:id
 						</h5>
 						<p class="card-text">Updates one single user in the database.</p>
-                        <p>Provide a body in the request with a JSON user object containing the updates in following format:</p>
-                        <div class="bg-dark text-light rounded p-4" style="font-family: 'Source Code Pro', monospace">
+						<p>
+							Provide a body in the request with a JSON user object containing
+							the updates in following format:
+						</p>
+						<div
+							class="bg-dark text-light rounded p-4"
+							style="font-family: 'Source Code Pro', monospace"
+						>
 							<span>{</span><br />
 							<span class="ms-4" style="color: #48da87">"name"</span
 							><span>:</span
@@ -100,14 +116,13 @@
 						</div>
 					</div>
 				</div>
-                <div class="card mb-4" style="width: min(100%, 50rem)">
+				<div class="card mb-4" style="width: min(100%, 50rem)">
 					<div class="card-body">
 						<h5 class="card-title">
-							<span class="text-danger me-2">DELETE</span>/user/:id
+							<span class="text-danger me-2">DELETE</span
+							>/.netlify/functions/api/user/:id
 						</h5>
-						<p class="card-text">
-							Deletes one single user from the database.
-						</p>
+						<p class="card-text">Deletes one single user from the database.</p>
 					</div>
 				</div>
 			</div>

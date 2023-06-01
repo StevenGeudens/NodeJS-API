@@ -9,7 +9,56 @@ const path = require('path');
  */
 router.get('/', (req, res) => {
 	console.log("GET '/' route called");
-	res.sendFile('dist/index.html', {root: __dirname});
+	res.send(
+		'<div style="padding: 1rem;">'
+		+'<h1>Welcome to my API!</h1>'
+		+'<h1>These are the available routes:</h1>'
+	
+		+'<h2><span style="margin-right: 1rem; color: #0b5ed7;">GET</span>/</h2>'
+		+'Where you are right now'
+	
+		+'<hr/>'
+	
+		+'<h2><span style="margin-right: 1rem; color: #0b5ed7;">GET</span>/user</h2>'
+		+'Returns all users in the database.'
+	
+		+'<hr/>'
+	
+		+'<h2><span style="margin-right: 1rem; color: #0b5ed7;">GET</span>/user/:id</h2>'
+		+'<p>Returns one single user from the database by id.</p>'
+		
+		+'<hr/>'
+	
+		+'<h2><span style="margin-right: 1rem; color: #27d383;">POST</span>/user</h2>'
+		+ '<p>Adds one single user to the database.</p>'
+		+ '<p>A new JSON user object needs to be passed in the request body</p>'
+		+ '<p>Since we can\'t pass a body in our browser, this path only works when called via code/postman</p>'
+		+ '<p>Example JSON user object:</p>'
+		+ '<p>{</p>'
+		+ '<p style="margin-left: 1rem;">"name": "John Doe",</p>'
+		+ '<p style="margin-left: 1rem;">"birthdate": "1995-06-15T00:00:00.000Z",</p>'
+		+ '<p style="margin-left: 1rem;">"email": "johndoe@example.com",</p>'
+		+ '<p>}</p>'
+		
+		+'<hr/>'
+		
+		+'<h2><span style="margin-right: 1rem; color: #ffc107;">PUT</span>/user/:id</h2>'
+		+ '<p>Updates one single user in the database by id.</p>'
+		+ '<p>A JSON user object needs to be passed in the request body containing the changes.</p>' 
+		+ '<p>Since we can\'t pass a body in our browser, this path only works when called via code/postman</p>'
+		+ '<p>Example updated JSON user object:</p>'
+		+ '<p>{</p>'
+		+ '<p style="margin-left: 1rem;">"name": "John Smith",</p>'
+		+ '<p>}</p>'
+		
+		+'<hr/>'
+	
+		+'<h2><span style="margin-right: 1rem; color: #dc3545;">DELETE</span>/user/:id</h2>'
+		+ '<p>Deletes one single user from the database by id.</p>'
+		
+		+ '<hr/>'
+		+'</div>'
+	  );
 });
 
 /**

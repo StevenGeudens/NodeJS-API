@@ -9,7 +9,7 @@ const path = require('path');
  */
 router.get('/', (req, res) => {
 	console.log("GET '/' route called");
-	res.sendFile(path.resolve('dist/index.html'));
+	res.sendFile('dist/index.html', {root: __dirname});
 });
 
 /**

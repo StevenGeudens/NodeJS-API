@@ -160,4 +160,65 @@ router.get('/manager', async (req, res) => {
 	}
 });
 
+/**
+ * GET '/manager/:id' route
+ * Returns one single manager from the database using .findById(objectId)
+ * Uses req.params.id which means the id is passed in the url
+ */
+router.get('/manager/:id', async (req, res) => {
+	console.log("GET '/manager/:id' route called");
+	try {
+		res.send(await Manager.findById(req.params.id).populate('stores').sort('name'));
+	} catch (err) {
+		console.log(err);
+		res.sendStatus(500);
+	}
+});
+
+/**
+ * POST '/manager' route
+ * Creates one single manager to the database using .create(data)
+ * uses req.body which means an object is passed in the request body
+ */
+router.post('/manager', async (req, res) => {
+	console.log("POST '/manager' route called");
+	try {
+		res.send(await Manager.create(req.body));
+	} catch (err) {
+		console.log(err);
+		res.sendStatus(500);
+	}
+});
+
+/**
+ * PUT '/manager/:id' route
+ * Updates one single manager in the database using .findByIdAndUpdate(objectId, {$set: data})
+ * Uses req.params.id, which means the id is passed in the url
+ * Also uses req.body, which means an object is passed in the request body
+ */
+router.put('/manager/:id', async (req, res) => {
+	console.log("PUT '/manager/:id' route called");
+	try {
+		res.send(await Manager.findByIdAndUpdate(req.params.id, { $set: req.body }));
+	} catch (err) {
+		console.log(err);
+		res.sendStatus(500);
+	}
+});
+
+/**
+ * DELETE '/manager/:id' route
+ * Deletes one single manager from the database using .findByIdAndDelete(objectId)
+ * Uses req.params.id, which means the id is passed in the url
+ */
+router.delete('/manager/:id', async (req, res) => {
+	console.log("DELETE '/manager/:id' route called");
+	try {
+		res.send(await Manager.findByIdAndDelete(req.params.id));
+	} catch (err) {
+		console.log(err);
+		res.sendStatus(500);
+	}
+});
+
 module.exports = router;

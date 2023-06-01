@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const User = require('./models/user');
-const path = require('path');
+const Store = require('./models/store');
+const Manager = require('./models/manager');
 
 /**
  * GET '/' route
@@ -19,56 +19,62 @@ router.get('/', (req, res) => {
 	
 		+'<hr/>'
 	
-		+'<h2><span style="margin-right: 1rem; color: #0b5ed7;">GET</span>/user</h2>'
-		+'Returns all users in the database.'
+		+'<h2><span style="margin-right: 1rem; color: #0b5ed7;">GET</span>/store</h2>'
+		+'Returns all stores in the database.'
 	
 		+'<hr/>'
 	
-		+'<h2><span style="margin-right: 1rem; color: #0b5ed7;">GET</span>/user/:id</h2>'
-		+'<p>Returns one single user from the database by id.</p>'
+		+'<h2><span style="margin-right: 1rem; color: #0b5ed7;">GET</span>/store/:id</h2>'
+		+'<p>Returns one single store from the database by id.</p>'
 		
 		+'<hr/>'
 	
-		+'<h2><span style="margin-right: 1rem; color: #27d383;">POST</span>/user</h2>'
-		+ '<p>Adds one single user to the database.</p>'
-		+ '<p>A new JSON user object needs to be passed in the request body</p>'
+		+'<h2><span style="margin-right: 1rem; color: #27d383;">POST</span>/store</h2>'
+		+ '<p>Adds one single store to the database.</p>'
+		+ '<p>A new JSON store object needs to be passed in the request body</p>'
 		+ '<p>Since we can\'t pass a body in our browser, this path only works when called via code/postman</p>'
-		+ '<p>Example JSON user object:</p>'
+		+ '<p>Example JSON store object:</p>'
 		+ '<p>{</p>'
-		+ '<p style="margin-left: 1rem;">"name": "John Doe",</p>'
-		+ '<p style="margin-left: 1rem;">"birthdate": "1995-06-15T00:00:00.000Z",</p>'
-		+ '<p style="margin-left: 1rem;">"email": "johndoe@example.com",</p>'
+		+ '<p style="margin-left: 1rem;">"name": "String",</p>'
+		+ '<p style="margin-left: 1rem;">"location": "String",</p>'
+		+ '<p style="margin-left: 1rem;">"city": "String",</p>'
+		+ '<p style="margin-left: 1rem;">"state": "String",</p>'
+		+ '<p style="margin-left: 1rem;">"postalCode": "String",</p>'
 		+ '<p>}</p>'
 		
 		+'<hr/>'
 		
-		+'<h2><span style="margin-right: 1rem; color: #ffc107;">PUT</span>/user/:id</h2>'
-		+ '<p>Updates one single user in the database by id.</p>'
-		+ '<p>A JSON user object needs to be passed in the request body containing the changes.</p>' 
+		+'<h2><span style="margin-right: 1rem; color: #ffc107;">PUT</span>/store/:id</h2>'
+		+ '<p>Updates one single store in the database by id.</p>'
+		+ '<p>A JSON store object needs to be passed in the request body containing the changes.</p>' 
 		+ '<p>Since we can\'t pass a body in our browser, this path only works when called via code/postman</p>'
-		+ '<p>Example updated JSON user object:</p>'
+		+ '<p>Example updated JSON store object:</p>'
 		+ '<p>{</p>'
-		+ '<p style="margin-left: 1rem;">"name": "John Smith",</p>'
+		+ '<p style="margin-left: 1rem;">"name": "String",</p>'
 		+ '<p>}</p>'
 		
 		+'<hr/>'
 	
-		+'<h2><span style="margin-right: 1rem; color: #dc3545;">DELETE</span>/user/:id</h2>'
-		+ '<p>Deletes one single user from the database by id.</p>'
+		+'<h2><span style="margin-right: 1rem; color: #dc3545;">DELETE</span>/store/:id</h2>'
+		+ '<p>Deletes one single store from the database by id.</p>'
 		
 		+ '<hr/>'
 		+'</div>'
 	  );
 });
 
+/**********************************
+ *           Stores               *
+ **********************************/
+
 /**
- * GET '/User' route
- * Return all the users in the database
+ * GET '/store' route
+ * Return all the stores in the database
  */
-router.get('/user', async (req, res) => {
-	console.log("GET '/User' route called");
+router.get('/store', async (req, res) => {
+	console.log("GET '/store' route called");
 	try {
-		res.json(await User.find());
+		res.json(await Store.find());
 	} catch (err) {
 		console.log(err);
 		res.sendStatus(500);
@@ -76,14 +82,14 @@ router.get('/user', async (req, res) => {
 });
 
 /**
- * GET '/User/:id' route
- * Returns one single user from the database using .findById(objectId)
+ * GET '/store/:id' route
+ * Returns one single store from the database using .findById(objectId)
  * Uses req.params.id which means the id is passed in the url
  */
-router.get('/user/:id', async (req, res) => {
-	console.log("GET '/user/:id' route called");
+router.get('/store/:id', async (req, res) => {
+	console.log("GET '/store/:id' route called");
 	try {
-		res.send(await User.findById(req.params.id));
+		res.send(await Store.findById(req.params.id));
 	} catch (err) {
 		console.log(err);
 		res.sendStatus(500);
@@ -91,14 +97,14 @@ router.get('/user/:id', async (req, res) => {
 });
 
 /**
- * POST '/user' route
- * Creates one single user to the database using .create(data)
+ * POST '/store' route
+ * Creates one single store to the database using .create(data)
  * uses req.body which means an object is passed in the request body
  */
-router.post('/user', async (req, res) => {
-	console.log("POST '/user' route called");
+router.post('/store', async (req, res) => {
+	console.log("POST '/store' route called");
 	try {
-		res.send(await User.create(req.body));
+		res.send(await Store.create(req.body));
 	} catch (err) {
 		console.log(err);
 		res.sendStatus(500);
@@ -106,15 +112,15 @@ router.post('/user', async (req, res) => {
 });
 
 /**
- * PUT '/user/:id' route
- * Updates one single user in the database using .findByIdAndUpdate(objectId, {$set: data})
+ * PUT '/store/:id' route
+ * Updates one single store in the database using .findByIdAndUpdate(objectId, {$set: data})
  * Uses req.params.id, which means the id is passed in the url
  * Also uses req.body, which means an object is passed in the request body
  */
-router.put('/user/:id', async (req, res) => {
-	console.log("PUT '/user/:id' route called");
+router.put('/store/:id', async (req, res) => {
+	console.log("PUT '/store/:id' route called");
 	try {
-		res.send(await User.findByIdAndUpdate(req.params.id, { $set: req.body }));
+		res.send(await Store.findByIdAndUpdate(req.params.id, { $set: req.body }));
 	} catch (err) {
 		console.log(err);
 		res.sendStatus(500);
@@ -122,14 +128,32 @@ router.put('/user/:id', async (req, res) => {
 });
 
 /**
- * DELETE '/user/:id' route
- * Deletes one single user from the database using .findByIdAndDelete(objectId)
+ * DELETE '/store/:id' route
+ * Deletes one single store from the database using .findByIdAndDelete(objectId)
  * Uses req.params.id, which means the id is passed in the url
  */
-router.delete('/user/:id', async (req, res) => {
-	console.log("DELETE '/user/:id' route called");
+router.delete('/store/:id', async (req, res) => {
+	console.log("DELETE '/store/:id' route called");
 	try {
-		res.send(await User.findByIdAndDelete(req.params.id));
+		res.send(await Store.findByIdAndDelete(req.params.id));
+	} catch (err) {
+		console.log(err);
+		res.sendStatus(500);
+	}
+});
+
+/**********************************
+ *          Managers              *
+ **********************************/
+
+/**
+ * GET '/manager' route
+ * Return all the managers in the database
+ */
+router.get('/manager', async (req, res) => {
+	console.log("GET '/manager' route called");
+	try {
+		res.json(await Manager.find().populate('stores').sort('name'));
 	} catch (err) {
 		console.log(err);
 		res.sendStatus(500);

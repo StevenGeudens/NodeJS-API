@@ -3,11 +3,13 @@ const Store = require('./store');
 
 const ManagerSchema = new mongoose.Schema(
 	{
-		firstName: { type: String },
-		lastName: { type: String },
-		email: { type: String },
+		firstname: { type: String, required: true },
+		lastname: { type: String, required: true },
+		email: { type: String, required: true },
 		phone: { type: String },
-		stores: [{ type: mongoose.Schema.Types.ObjectId, ref: Store }],
+		stores: [
+			{ type: mongoose.Schema.Types.ObjectId, ref: Store, required: true },
+		],
 	},
 	{
 		collection: 'manager',

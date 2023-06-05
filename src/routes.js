@@ -3,7 +3,7 @@ const router = express.Router();
 const Store = require('./models/store');
 const Manager = require('./models/manager');
 const auth = require('../middleware/auth');
-const {admin, user} = require('../middleware/roles');
+const { admin, user } = require('../middleware/roles');
 
 /**
  * GET '/' route
@@ -12,215 +12,218 @@ const {admin, user} = require('../middleware/roles');
 router.get('/', (req, res) => {
 	console.log("GET '/' route called");
 	res.send(
-		'<!DOCTYPE html>'
-		+'<html lang="en">'
-			+'<head>'
-				+'<meta charset="utf-8" />'
-				+'<meta name="viewport" content="width=device-width, initial-scale=1" />'
-				+'<title>NodeJS API</title>'
-				+'<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous" />'
-			+'</head>'
-			+'<body>'
-				+'<div class="container my-4">'
-					+'<div class="text-center">'
-						+'<h1 class="text-uppercase">Welcome to my API</h1>'
-						+'<h4 class="text-muted fw-normal">These are the available routes</h4>'
-					+'</div>'
-					+'<div class="row mt-5">'
-						+'<h4>API authentication</h4>'
-						+'<hr />'
-						+'<div class="row">'
-							+'<div class="col-6">'
-								+'<p>To use any of the routes you need to first acquire a bearer token. To acquire a bearer token you can use the following route.</p>'
-							+'</div>'
-							+'<div class="col-6">'
-								+'<div class="card">'
-									+'<div class="card-body">'
-										+'<span class="badge rounded-pill text-bg-success me-2">POST</span>'
-										+'<h5 class="card-title d-inline">/user/auth</h5>'
-										+'<p class="card-text my-2">Returns a bearer token that needs to be used in requests to any of the following routes.</p>'
-										+'<p class="card-text my-2">Provide the email and password of a registered user in the request body.</p>'
-										+'<div class="card text-bg-dark">'
-											+'<div class="card-header">Request body</div>'
-											+'<div class="card-body">'
-												+'<p class="card-text">{</p>'
-												+'<p class="card-text ms-4">"email": "String",</p>'
-												+'<p class="card-text ms-4">"password": "String"</p>'
-												+'<p class="card-text">}</p>'
-											+'</div>'
-										+'</div>'
-										+'<p class="card-text my-2">There are currently two accounts that can be used to acquire a token.</p>'
-										+'<div class="card mb-2">'
-											+'<div class="card-body">'
-												+'<h5 class="card-title">Admin</h5>'
-												+'<p class="card-text">'
-													+'<span class="fw-bold">Email:</span>admin@example.com<br /><span class="fw-bold">Password:</span>password</p>'
-												+'<p class="card-text fw-bold d-inline">Allowed actions:</p>'
-												+'<span class="badge rounded-pill text-bg-primary">GET</span>'
-												+'<span class="badge rounded-pill text-bg-success">POST</span>'
-												+'<span class="badge rounded-pill text-bg-warning">PUT</span>'
-												+'<span class="badge rounded-pill text-bg-danger">DELETE</span>'
-											+'</div>'
-										+'</div>'
-										+'<div class="card">'
-											+'<div class="card-body">'
-												+'<h5 class="card-title">User</h5>'
-												+'<p class="card-text">'
-													+'<span class="fw-bold">Email:</span>user@example.com<br /><span class="fw-bold">Password:</span>password</p>'
-												+'<p class="card-text fw-bold d-inline">Allowed actions:</p><span class="badge rounded-pill text-bg-primary">GET</span>'
-											+'</div>'
-										+'</div>'
-									+'</div>'
-								+'</div>'
-							+'</div>'
-						+'</div>'
-					+'</div>'
-					+'<div class="row mt-5">'
-						+'<h4>Store routes</h4>'
-						+'<hr />'
-						+'<div class="col-4 my-4">'
-							+'<div class="card">'
-								+'<div class="card-body">'
-									+'<span class="badge rounded-pill text-bg-primary me-2">GET</span><h5 class="card-title d-inline">/store</h5>'
-									+'<p class="card-text my-2">Returns all the stores in the database.</p>'
-								+'</div>'
-							+'</div>'
-						+'</div>'
-						+'<div class="col-4 my-4">'
-							+'<div class="card">'
-								+'<div class="card-body">'
-									+'<span class="badge rounded-pill text-bg-primary me-2">GET</span><h5 class="card-title d-inline">/store/:id</h5>'
-									+'<p class="card-text my-2">Returns one single store from the database by id.</p>'
-								+'</div>'
-							+'</div>'
-						+'</div>'
-						+'<div class="col-4 my-4">'
-							+'<div class="card">'
-								+'<div class="card-body">'
-									+'<span class="badge rounded-pill text-bg-danger me-2">DELETE</span>'
-									+'<h5 class="card-title d-inline">/store/:id</h5>'
-									+'<p class="card-text my-2">Deletes one single store from the database by id.</p>'
-								+'</div>'
-							+'</div>'
-						+'</div>'
-						+'<div class="col-4">'
-							+'<div class="card">'
-								+'<div class="card-body">'
-									+'<span class="badge rounded-pill text-bg-success me-2">POST</span>'
-									+'<h5 class="card-title d-inline">/store</h5>'
-									+'<p class="card-text mt-2">Adds one single store to the database.</p>'
-									+'<p class="card-text">A new JSON store object needs to be passed in the request body.</p>'
-									+'<p class="card-text">Since we can&#39;t pass a body in our browser, this path only works when called via code/postman.</p>'
-									+'<div class="card text-bg-dark">'
-										+'<div class="card-header">Request body</div>'
-										+'<div class="card-body">'
-											+'<p class="card-text">{</p>'
-											+'<p class="card-text ms-4">"name": "String",</p>'
-											+'<p class="card-text ms-4">"location": "String",</p>'
-											+'<p class="card-text ms-4">"city": "String",</p>'
-											+'<p class="card-text ms-4">"state": "String",</p>'
-											+'<p class="card-text ms-4">"postalCode": "String"</p>'
-											+'<p class="card-text">}</p>'
-										+'</div>'
-									+'</div>'
-								+'</div>'
-							+'</div>'
-						+'</div>'
-						+'<div class="col-4">'
-							+'<div class="card">'
-								+'<div class="card-body">'
-									+'<span class="badge rounded-pill text-bg-warning me-2">PUT</span><h5 class="card-title d-inline">/store/:id</h5>'
-									+'<p class="card-text mt-2">Updates one single store in the database by id.</p>'
-									+'<p class="card-text">A JSON store object needs to be passed in the request body containing the changes.</p>'
-									+'<p class="card-text">Since we can&#39;t pass a body in our browser, this path only works when called via code/postman.</p>'
-									+'<div class="card text-bg-dark">'
-										+'<div class="card-header">Request body</div>'
-										+'<div class="card-body">'
-											+'<p class="card-text">{</p>'
-											+'<p class="card-text ms-4">"name": "String"</p>'
-											+'<p class="card-text">}</p>'
-										+'</div>'
-									+'</div>'
-								+'</div>'
-							+'</div>'
-						+'</div>'
-					+'</div>'
-					+'<div class="row mt-5">'
-						+'<h4>Manager routes</h4>'
-						+'<hr />'
-						+'<div class="col-4 my-4">'
-							+'<div class="card">'
-								+'<div class="card-body">'
-									+'<span class="badge rounded-pill text-bg-primary me-2">GET</span>'
-									+'<h5 class="card-title d-inline">/manager</h5>'
-									+'<p class="card-text my-2">Returns all the managers in the database.</p>'
-								+'</div>'
-							+'</div>'
-						+'</div>'
-						+'<div class="col-4 my-4">'
-							+'<div class="card">'
-								+'<div class="card-body">'
-									+'<span class="badge rounded-pill text-bg-primary me-2">GET</span><h5 class="card-title d-inline">/manager/:id</h5>'
-									+'<p class="card-text my-2">Returns one single manager from the database by id.</p>'
-								+'</div>'
-							+'</div>'
-						+'</div>'
-						+'<div class="col-4 my-4">'
-							+'<div class="card">'
-								+'<div class="card-body">'
-									+'<span class="badge rounded-pill text-bg-danger me-2">DELETE</span>'
-									+'<h5 class="card-title d-inline">/manager/:id</h5>'
-									+'<p class="card-text my-2">Deletes one single manager from the database by id.</p>'
-								+'</div>'
-							+'</div>'
-						+'</div>'
-						+'<div class="col-4">'
-							+'<div class="card">'
-								+'<div class="card-body">'
-									+'<span class="badge rounded-pill text-bg-success me-2">POST</span>'
-									+'<h5 class="card-title d-inline">/manager</h5>'
-									+'<p class="card-text mt-2">Adds one single manager to the database.</p>'
-									+'<p class="card-text">A new JSON manager object needs to be passed in the request body.</p>'
-									+'<p class="card-text">Since we can&#39;t pass a body in our browser, this path only works when called via code/postman.</p>'
-									+'<div class="card text-bg-dark">'
-										+'<div class="card-header">Request body</div>'
-										+'<div class="card-body">'
-											+'<p class="card-text">{</p>'
-											+'<p class="card-text ms-4">"firstname": "String",</p>'
-											+'<p class="card-text ms-4">"lastname": "String",</p>'
-											+'<p class="card-text ms-4">"email": "String",</p>'
-											+'<p class="card-text ms-4">"phone": "String",</p>'
-											+'<p class="card-text ms-4">"stores": [Store id, Store id, ...]</p>'
-											+'<p class="card-text">}</p>'
-										+'</div>'
-									+'</div>'
-								+'</div>'
-							+'</div>'
-						+'</div>'
-						+'<div class="col-4">'
-							+'<div class="card">'
-								+'<div class="card-body">'
-									+'<span class="badge rounded-pill text-bg-warning me-2">PUT</span><h5 class="card-title d-inline">/manager/:id</h5>'
-									+'<p class="card-text mt-2">Updates one single manager in the database by id.</p>'
-									+'<p class="card-text">A JSON manager object needs to be passed in the request body containing the changes.</p>'
-									+'<p class="card-text">Since we can&#39;t a body in our browser, this path only works when called via code/postman.</p>'
-									+'<div class="card text-bg-dark">'
-										+'<div class="card-header">Request body</div>'
-										+'<div class="card-body">'
-											+'<p class="card-text">{</p>'
-											+'<p class="card-text ms-4">"firstname": "String"</p>'
-											+'<p class="card-text">}</p>'
-										+'</div>'
-									+'</div>'
-								+'</div>'
-							+'</div>'
-						+'</div>'
-					+'</div>'
-				+'</div>'
-				+'<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>'
-			+'</body>'
-		+'</html>'	
-	  );
+		'<!DOCTYPE html>' +
+			'<html lang="en">' +
+			'<head>' +
+			'<meta charset="utf-8" />' +
+			'<meta name="viewport" content="width=device-width, initial-scale=1" />' +
+			'<title>NodeJS API</title>' +
+			'<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous" />' +
+			'</head>' +
+			'<body>' +
+			'<div class="container my-4">' +
+			'<div class="text-center">' +
+			'<h1 class="text-uppercase">Welcome to my API</h1>' +
+			'<h4 class="text-muted fw-normal">These are the available routes</h4>' +
+			'</div>' +
+			'<div class="row mt-5">' +
+			'<h4>API authentication</h4>' +
+			'<hr />' +
+			'<div class="row">' +
+			'<div class="col-6">' +
+			'<p>To use any of the routes you need to first acquire a bearer token. To acquire a bearer token you can use the following route.</p>' +
+			'</div>' +
+			'<div class="col-6">' +
+			'<div class="card">' +
+			'<div class="card-body">' +
+			'<span class="badge rounded-pill text-bg-success me-2">POST</span>' +
+			'<h5 class="card-title d-inline">/user/auth</h5>' +
+			'<p class="card-text my-2">Returns a bearer token that needs to be used in requests to any of the following routes.</p>' +
+			'<p class="card-text my-2">Provide the email and password of a registered user in the request body.</p>' +
+			'<div class="card text-bg-dark">' +
+			'<div class="card-header">Request body</div>' +
+			'<div class="card-body">' +
+			'<p class="card-text">{</p>' +
+			'<p class="card-text ms-4">"email": "String",</p>' +
+			'<p class="card-text ms-4">"password": "String"</p>' +
+			'<p class="card-text">}</p>' +
+			'</div>' +
+			'</div>' +
+			'<p class="card-text my-2">There are currently two accounts that can be used to acquire a token.</p>' +
+			'<div class="card mb-2">' +
+			'<div class="card-body">' +
+			'<h5 class="card-title">Admin</h5>' +
+			'<p class="card-text">' +
+			'<span class="fw-bold me-1">Email:</span>●●●●●●●●●●●●●●●●●●●<br /><span class="fw-bold me-1">Password:</span>●●●●●●●●●●●●</p>' +
+			'<p class="card-text fw-bold d-inline me-1">Allowed actions:</p>' +
+			'<span class="badge rounded-pill text-bg-primary me-1">GET</span>' +
+			'<span class="badge rounded-pill text-bg-success me-1">POST</span>' +
+			'<span class="badge rounded-pill text-bg-warning me-1">PUT</span>' +
+			'<span class="badge rounded-pill text-bg-danger">DELETE</span>' +
+			'</div>' +
+			'</div>' +
+			'<div class="card">' +
+			'<div class="card-body">' +
+			'<h5 class="card-title">User</h5>' +
+			'<p class="card-text">' +
+			'<span class="fw-bold me-1">Email:</span>user@example.com<br /><span class="fw-bold me-1">Password:</span>password</p>' +
+			'<p class="card-text fw-bold d-inline me-1">Allowed actions:</p><span class="badge rounded-pill text-bg-primary">GET</span>' +
+			'<p class="card-text text-muted fst-italic">' +
+			'You can use the user account to test the API.' +
+			'</p>' +
+			'</div>' +
+			'</div>' +
+			'</div>' +
+			'</div>' +
+			'</div>' +
+			'</div>' +
+			'</div>' +
+			'<div class="row mt-5">' +
+			'<h4>Store routes</h4>' +
+			'<hr />' +
+			'<div class="col-4 my-4">' +
+			'<div class="card">' +
+			'<div class="card-body">' +
+			'<span class="badge rounded-pill text-bg-primary me-2">GET</span><h5 class="card-title d-inline">/store</h5>' +
+			'<p class="card-text my-2">Returns all the stores in the database.</p>' +
+			'</div>' +
+			'</div>' +
+			'</div>' +
+			'<div class="col-4 my-4">' +
+			'<div class="card">' +
+			'<div class="card-body">' +
+			'<span class="badge rounded-pill text-bg-primary me-2">GET</span><h5 class="card-title d-inline">/store/:id</h5>' +
+			'<p class="card-text my-2">Returns one single store from the database by id.</p>' +
+			'</div>' +
+			'</div>' +
+			'</div>' +
+			'<div class="col-4 my-4">' +
+			'<div class="card">' +
+			'<div class="card-body">' +
+			'<span class="badge rounded-pill text-bg-danger me-2">DELETE</span>' +
+			'<h5 class="card-title d-inline">/store/:id</h5>' +
+			'<p class="card-text my-2">Deletes one single store from the database by id.</p>' +
+			'</div>' +
+			'</div>' +
+			'</div>' +
+			'<div class="col-4">' +
+			'<div class="card">' +
+			'<div class="card-body">' +
+			'<span class="badge rounded-pill text-bg-success me-2">POST</span>' +
+			'<h5 class="card-title d-inline">/store</h5>' +
+			'<p class="card-text mt-2">Adds one single store to the database.</p>' +
+			'<p class="card-text">A new JSON store object needs to be passed in the request body.</p>' +
+			'<p class="card-text">Since we can&#39;t pass a body in our browser, this path only works when called via code/postman.</p>' +
+			'<div class="card text-bg-dark">' +
+			'<div class="card-header">Request body</div>' +
+			'<div class="card-body">' +
+			'<p class="card-text">{</p>' +
+			'<p class="card-text ms-4">"name": "String",</p>' +
+			'<p class="card-text ms-4">"location": "String",</p>' +
+			'<p class="card-text ms-4">"city": "String",</p>' +
+			'<p class="card-text ms-4">"state": "String",</p>' +
+			'<p class="card-text ms-4">"postalCode": "String"</p>' +
+			'<p class="card-text">}</p>' +
+			'</div>' +
+			'</div>' +
+			'</div>' +
+			'</div>' +
+			'</div>' +
+			'<div class="col-4">' +
+			'<div class="card">' +
+			'<div class="card-body">' +
+			'<span class="badge rounded-pill text-bg-warning me-2">PUT</span><h5 class="card-title d-inline">/store/:id</h5>' +
+			'<p class="card-text mt-2">Updates one single store in the database by id.</p>' +
+			'<p class="card-text">A JSON store object needs to be passed in the request body containing the changes.</p>' +
+			'<p class="card-text">Since we can&#39;t pass a body in our browser, this path only works when called via code/postman.</p>' +
+			'<div class="card text-bg-dark">' +
+			'<div class="card-header">Request body</div>' +
+			'<div class="card-body">' +
+			'<p class="card-text">{</p>' +
+			'<p class="card-text ms-4">"name": "String"</p>' +
+			'<p class="card-text">}</p>' +
+			'</div>' +
+			'</div>' +
+			'</div>' +
+			'</div>' +
+			'</div>' +
+			'</div>' +
+			'<div class="row mt-5">' +
+			'<h4>Manager routes</h4>' +
+			'<hr />' +
+			'<div class="col-4 my-4">' +
+			'<div class="card">' +
+			'<div class="card-body">' +
+			'<span class="badge rounded-pill text-bg-primary me-2">GET</span>' +
+			'<h5 class="card-title d-inline">/manager</h5>' +
+			'<p class="card-text my-2">Returns all the managers in the database.</p>' +
+			'</div>' +
+			'</div>' +
+			'</div>' +
+			'<div class="col-4 my-4">' +
+			'<div class="card">' +
+			'<div class="card-body">' +
+			'<span class="badge rounded-pill text-bg-primary me-2">GET</span><h5 class="card-title d-inline">/manager/:id</h5>' +
+			'<p class="card-text my-2">Returns one single manager from the database by id.</p>' +
+			'</div>' +
+			'</div>' +
+			'</div>' +
+			'<div class="col-4 my-4">' +
+			'<div class="card">' +
+			'<div class="card-body">' +
+			'<span class="badge rounded-pill text-bg-danger me-2">DELETE</span>' +
+			'<h5 class="card-title d-inline">/manager/:id</h5>' +
+			'<p class="card-text my-2">Deletes one single manager from the database by id.</p>' +
+			'</div>' +
+			'</div>' +
+			'</div>' +
+			'<div class="col-4">' +
+			'<div class="card">' +
+			'<div class="card-body">' +
+			'<span class="badge rounded-pill text-bg-success me-2">POST</span>' +
+			'<h5 class="card-title d-inline">/manager</h5>' +
+			'<p class="card-text mt-2">Adds one single manager to the database.</p>' +
+			'<p class="card-text">A new JSON manager object needs to be passed in the request body.</p>' +
+			'<p class="card-text">Since we can&#39;t pass a body in our browser, this path only works when called via code/postman.</p>' +
+			'<div class="card text-bg-dark">' +
+			'<div class="card-header">Request body</div>' +
+			'<div class="card-body">' +
+			'<p class="card-text">{</p>' +
+			'<p class="card-text ms-4">"firstname": "String",</p>' +
+			'<p class="card-text ms-4">"lastname": "String",</p>' +
+			'<p class="card-text ms-4">"email": "String",</p>' +
+			'<p class="card-text ms-4">"phone": "String",</p>' +
+			'<p class="card-text ms-4">"stores": [Store id, Store id, ...]</p>' +
+			'<p class="card-text">}</p>' +
+			'</div>' +
+			'</div>' +
+			'</div>' +
+			'</div>' +
+			'</div>' +
+			'<div class="col-4">' +
+			'<div class="card">' +
+			'<div class="card-body">' +
+			'<span class="badge rounded-pill text-bg-warning me-2">PUT</span><h5 class="card-title d-inline">/manager/:id</h5>' +
+			'<p class="card-text mt-2">Updates one single manager in the database by id.</p>' +
+			'<p class="card-text">A JSON manager object needs to be passed in the request body containing the changes.</p>' +
+			'<p class="card-text">Since we can&#39;t a body in our browser, this path only works when called via code/postman.</p>' +
+			'<div class="card text-bg-dark">' +
+			'<div class="card-header">Request body</div>' +
+			'<div class="card-body">' +
+			'<p class="card-text">{</p>' +
+			'<p class="card-text ms-4">"firstname": "String"</p>' +
+			'<p class="card-text">}</p>' +
+			'</div>' +
+			'</div>' +
+			'</div>' +
+			'</div>' +
+			'</div>' +
+			'</div>' +
+			'</div>' +
+			'<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>' +
+			'</body>' +
+			'</html>'
+	);
 });
 
 /**********************************
@@ -328,7 +331,9 @@ router.get('/manager', [auth, user], async (req, res) => {
 router.get('/manager/:id', [auth, user], async (req, res) => {
 	console.log("GET '/manager/:id' route called");
 	try {
-		res.send(await Manager.findById(req.params.id).populate('stores').sort('name'));
+		res.send(
+			await Manager.findById(req.params.id).populate('stores').sort('name')
+		);
 	} catch (err) {
 		console.log(err);
 		res.sendStatus(500);
@@ -359,7 +364,9 @@ router.post('/manager', [auth, admin], async (req, res) => {
 router.put('/manager/:id', [auth, admin], async (req, res) => {
 	console.log("PUT '/manager/:id' route called");
 	try {
-		res.send(await Manager.findByIdAndUpdate(req.params.id, { $set: req.body }));
+		res.send(
+			await Manager.findByIdAndUpdate(req.params.id, { $set: req.body })
+		);
 	} catch (err) {
 		console.log(err);
 		res.sendStatus(500);

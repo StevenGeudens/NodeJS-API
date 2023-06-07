@@ -1,2 +1,2 @@
-# Simple-JS-API
-A simple JS API build in NodeJs
+# NodeJS API
+A simple JS API with authentication build in NodeJs
